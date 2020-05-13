@@ -15,7 +15,7 @@ namespace imit13
     {
         Random rnd;
         List<float> values = new List<float>();
-        int n;
+        float p;
         int[] Count;
         public Form1()
         {
@@ -28,76 +28,28 @@ namespace imit13
 
         private void StartBtn_Click(object sender, EventArgs e)
         {
-            float chi = 9.488f;
+            
             init();
+
             if (check())
             {
                 StatPanel.Visible = true;
-                double A = 0;
-                int k = 0;
-                float M = 0, D = 0, Derror = 0, Merror = 0, Chi_square = 0;
-                for (int i = 0; i < numericUpDown1.Value; i++)
-                {
-                    A = rnd.NextDouble();
-                    k = 0;
-                    foreach (var value in values)
-                    {
-                        A -= value;
-                        if (A <= 0)
-                        {
-                            Count[k]++;
-                            break;
-                        }
-                        k++;
-                    }
-                }
-                for (int i = 0; i < n; i++)
+
+                filler();
+                
+                for (int i = 0; i < 4; i++)
                 {
                     chart1.Series[0].Points.AddXY(i, Count[i] / numericUpDown1.Value);
                 }
 
-
-                for (int i = 0; i < n; i++)
-                {
-                    M += (Count[i] / (float)numericUpDown1.Value) * (i + 1);
-                    Merror += values[i] * (i + 1);
-
-                    D += (Count[i] / (float)numericUpDown1.Value) * (i + 1) * (i + 1);
-                    Derror += values[i] * (i + 1) * (i + 1);
-
-                    Chi_square += ((Count[i] * Count[i]) / ((float)numericUpDown1.Value * (float)values[i]));
-                }
-                Chi_square -= (float)numericUpDown1.Value;
-                D -= M * M;
-                Derror -= Merror * Merror;
-                VarianceLbl.Text = D.ToString();
-                AverageLbl.Text = M.ToString();
-                ErrAvgLbl.Text = (Math.Abs(M - Merror) / Math.Abs(Merror)).ToString();
-                ErrVarLbl.Text = (Math.Abs(D - Derror) / Math.Abs(Derror)).ToString();
-                Chi1Lbl.Text = Chi_square.ToString();
-                Chi2Lbl.Text = "9.488";
-                if (Chi_square > chi)
-                {
-                    BoolLbl.Text = "true";
-                }
-                else
-                {
-                    BoolLbl.Text = "false";
-                }
-                float Sum = 0;
-                for (int i = 0; i < n; i++)
-                {
-                    Sum += values[i];
-                }
-                Console.WriteLine((Sum - n * Merror) / Math.Sqrt(n * Derror));
-
-                for (int i = 0; i < n; i++)
+                counter();
+                
+                for (int i = 0; i < 4; i++)
                 {
                     Count[i] = 0;
                 }
             }
-
-
+            
 
         }
         bool check()
@@ -125,28 +77,79 @@ namespace imit13
             chart1.Visible = true;
             chart1.Series[0].Points.Clear();
             values.Clear();
-            double Sum = 0;
-            float A;
-            n = Int32.Parse(textBox1.Text, CultureInfo.InvariantCulture.NumberFormat);
-            for (int i = 0; i < n-1; i++)
+            float Sum = 0;
+            
+            p = float.Parse(textBox1.Text, CultureInfo.InvariantCulture.NumberFormat);
+            for (int i = 0; i < 3; i++)
             {
-                A = (float)(rnd.NextDouble() % (1 - Sum));
-                Console.WriteLine(A);
-                values.Add(A);
-                Sum += A;
+                values.Add(p*(float)Math.Pow((1-p),i));
+                Sum += values[i];
             }
-            values.Add((float)(1 - Sum));
-            Console.WriteLine(values[n-1]);
+            values.Add(1 - Sum);
 
 
 
 
 
-
-            Count = new int[n];
+            Count = new int[4];
             
             
             
+        }
+
+        void filler()
+        {
+            double A = 0;
+            int k = 0;
+            for (int i = 0; i < numericUpDown1.Value; i++)
+            {
+                A = rnd.NextDouble();
+                k = 0;
+                foreach (var value in values)
+                {
+                    A -= value;
+                    if (A <= 0)
+                    {
+                        Count[k]++;
+                        break;
+                    }
+                    k++;
+                }
+            }
+        }
+
+        void counter()
+        {
+            float chi = 9.488f;
+
+            float M = 0, D = 0, Derror = 0, Merror = 0, Chi_square = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                M += (Count[i] / (float)numericUpDown1.Value) * (i + 1);
+                Merror += values[i] * (i + 1);
+
+                D += (Count[i] / (float)numericUpDown1.Value) * (i + 1) * (i + 1);
+                Derror += values[i] * (i + 1) * (i + 1);
+
+                Chi_square += ((Count[i] * Count[i]) / ((float)numericUpDown1.Value * (float)values[i]));
+            }
+            Chi_square -= (float)numericUpDown1.Value;
+            D -= M * M;
+            Derror -= Merror * Merror;
+            VarianceLbl.Text = D.ToString();
+            AverageLbl.Text = M.ToString();
+            ErrAvgLbl.Text = (Math.Abs(M - Merror) / Math.Abs(Merror)).ToString();
+            ErrVarLbl.Text = (Math.Abs(D - Derror) / Math.Abs(Derror)).ToString();
+            Chi1Lbl.Text = Chi_square.ToString();
+            Chi2Lbl.Text = "9.488";
+            if (Chi_square > chi)
+            {
+                BoolLbl.Text = "true";
+            }
+            else
+            {
+                BoolLbl.Text = "false";
+            }
         }
     }
 }

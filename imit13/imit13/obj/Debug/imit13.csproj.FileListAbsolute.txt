@@ -8,3 +8,13 @@ C:\Users\Артём\source\repos\imit13\imit13\obj\Debug\imit13.csproj.GenerateR
 C:\Users\Артём\source\repos\imit13\imit13\obj\Debug\imit13.csproj.CoreCompileInputs.cache
 C:\Users\Артём\source\repos\imit13\imit13\obj\Debug\imit13.exe
 C:\Users\Артём\source\repos\imit13\imit13\obj\Debug\imit13.pdb
+C:\imits\imit13\imit13\imit13\bin\Debug\imit13.exe.config
+C:\imits\imit13\imit13\imit13\bin\Debug\imit13.exe
+C:\imits\imit13\imit13\imit13\bin\Debug\imit13.pdb
+C:\imits\imit13\imit13\imit13\obj\Debug\imit13.csprojAssemblyReference.cache
+C:\imits\imit13\imit13\imit13\obj\Debug\imit13.Form1.resources
+C:\imits\imit13\imit13\imit13\obj\Debug\imit13.Properties.Resources.resources
+C:\imits\imit13\imit13\imit13\obj\Debug\imit13.csproj.GenerateResource.cache
+C:\imits\imit13\imit13\imit13\obj\Debug\imit13.csproj.CoreCompileInputs.cache
+C:\imits\imit13\imit13\imit13\obj\Debug\imit13.exe
+C:\imits\imit13\imit13\imit13\obj\Debug\imit13.pdb
